@@ -1,4 +1,4 @@
-clf; close; close; clear;
+clf; close; close; close; clear;
 format long;
 
 % settings
@@ -150,10 +150,24 @@ disp('Score std:');
 disp(scores_std(class));
 
 % compute the confidence
+hd_min = scores(class);
 n = sum(test_person ~= 2);
-confidence = 1 - normpdf(scores(class), mean_d, sqrt(mean_d * (1 - mean_d) / n));
+confidence = normcdf(hd_min, mean_d, sqrt(mean_d * (1 - mean_d) / n));
 disp('Confidence');
 disp(confidence);
+
+% shapes of the distributions normalized to the real number of present bits
+figure;
+hold on;
+plot(x, normpdf(x,  mean_s, sqrt(mean_s * (1 - mean_s) / n)));
+plot(x, normpdf(x,  mean_d, sqrt(mean_d * (1 - mean_d) / n)));
+line([hd_min, hd_min], ylim, 'Color', 'red', 'LineStyle', '-');
+hold off;
+xlim([0 1]);
+title('Binary Iris Codes Distribution with Missing Features');
+xlabel('Normalized Hamming Distance');
+ylabel('Frequency');
+legend({'same person', 'different person'});
 
 % visualize shapes of the HD distribution for a different number of bits n
 figure;
