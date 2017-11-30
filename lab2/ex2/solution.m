@@ -4,12 +4,12 @@ clear;
 syms a b c d k;
 
 % data
-X = [a b ; c d];
+X = [a c ; b d];
 dim = size(X, 1);
 
 % question 1
 m = mean(X);
-covariance = (X - m)' * (X - m) / dim;
+covariance = (X - m) * (X - m)' / dim;
 disp(covariance);
 
 % question 2

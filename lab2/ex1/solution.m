@@ -27,10 +27,10 @@ disp(biased_cov);
 
 % answer questions
 p1 = mvnpdf([5 5 6], m, covariance);
-fprintf('Value for [5 5 6] = %.6f\n', p1)
+fprintf('Value for [5 5 6] = %s\n', p1)
 
 p2 = mvnpdf([3 5 7], m, covariance);
-fprintf('Value for [3 5 7] = %.6f\n', p2)
+fprintf('Value for [3 5 7] = %s\n', p2)
 
 p3 = mvnpdf([4 6.5 1], m, covariance);
 fprintf('Value for [4 6.5 1] = %s\n', p3)
