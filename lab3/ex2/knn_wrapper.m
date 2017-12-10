@@ -31,16 +31,16 @@ fprintf('error rate for k=3  -> %.6f\n', errors_rate_3);
 fprintf('error rate for k=17 -> %.6f\n', errors_rate_17);
 
 % plot choice of K
-all_ks = 1:25;
+all_ks = 1:50;
 errors_rates = arrayfun(@(k) loovc(data, labels, k), all_ks);
 plot(all_ks, errors_rates);
 xlimits = xlim;
-xticks(xlimits(1):1:(xlimits(2)));
+xticks(xlimits(1):2:(xlimits(2)));
 ylimits = ylim;
 yticks(ylimits(1):0.01:(ylimits(2)));
-title('Classification errors for KNN for different values of K');
+title('Classification errors for KNN for different values of K (2 classes)');
 xlabel('K');
-ylabel('Errors Rate');
+ylabel('Error Rate');
 saveas(gcf, 'classification_errors_2_classes', 'png');
 
 % select best K
@@ -63,12 +63,12 @@ visualize(result_4_classes_k_7, 7, data, labels_4_classes, samples);
 errors_rates_4_classes = arrayfun(@(k) loovc(data, labels_4_classes, k), all_ks);
 plot(all_ks, errors_rates_4_classes);
 xlimits = xlim;
-xticks(xlimits(1):1:(xlimits(2)));
+xticks(xlimits(1):2:(xlimits(2)));
 ylimits = ylim;
 yticks(xlimits(1):0.01:(xlimits(2)));
 title('Classification errors for KNN for different values of K (4 classes)');
 xlabel('K');
-ylabel('Errors Rate');
+ylabel('Error Rate');
 saveas(gcf, 'classification_errors_4_classes', 'png');
 
 % select best K
