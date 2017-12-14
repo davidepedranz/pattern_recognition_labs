@@ -20,13 +20,13 @@ function myhoughline(image, rho, theta_degrees, plot_image)
     
     % handle vertical lines
     if theta == 0
-        % this is a vertical line... x is fixed, y goes through all image
-        y = 0:pixels_y;
+        % this is a vertical line... x is fixed, y goes through all the image
+        y = 1:pixels_y;
         x = ones(size(y)) * rho;
     else
         % we only need to plot the line on the image... so it makes sense to
         % only use x from 0 (the origin) to the number of pixels on the x axis
-        x = 0:pixels_x;
+        x = 1:pixels_x;
         
         % compute the y for each given x
         normal_y = (rho - x * cos(theta)) / sin(theta);
