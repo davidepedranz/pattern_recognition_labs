@@ -5,13 +5,13 @@ clear;
 tool_uint8 = imread('data/HeadTool0002.bmp');
 tool_raw = im2double(tool_uint8);
 
-% enhance image
+% enhance the image
 tool = adapthisteq(tool_raw);
 
-% look for circles
+% look for the circles
 [centers, radii] = imfindcircles(tool, [20, 40], 'Method', 'TwoStage', 'Sensitivity', 0.9);
 
-% plot the circles
+% plot the image with the circles
 figure;
 imshow(tool);
 viscircles(centers, radii, 'EdgeColor', 'g');
