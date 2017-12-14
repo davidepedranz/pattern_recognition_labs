@@ -6,7 +6,7 @@ function [accumulator, thetas, rhos] = myhough(edges)
     
     % the max distance of a line from the origin is the length of
     % diagonal of the image
-    max_rho = floor(max(size(edges)) * sqrt(2));
+    max_rho = ceil(sqrt(size(edges, 1) ^ 2 + size(edges, 2) ^ 2));
     rhos = -max_rho:1:max_rho;
     
     % initialize the accumulator

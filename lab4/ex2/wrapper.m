@@ -13,7 +13,7 @@ edges = edge(cameraman, 'canny');
 
 % plot our implementation
 figure;
-subplot(2, 1, 1);
+subplot(1, 2, 1);
 imshow(imadjust(rescale(accumulator)), 'XData', theta, 'YData', rho, 'InitialMagnification', 'fit');
 title('[Our] Hough transform of Cameraman.tiff');
 xlabel('\theta');
@@ -24,7 +24,7 @@ hold on;
 colormap(gca, 'hot');
 
 % plot matlab implementation
-subplot(2, 1, 2);
+subplot(1, 2, 2);
 imshow(imadjust(rescale(accumulator_real)), 'XData', theta_real, 'YData', rho_real, 'InitialMagnification', 'fit');
 title('[Matlab] Hough transform of Cameraman.tiff');
 xlabel('\theta');
