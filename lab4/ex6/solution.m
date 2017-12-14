@@ -1,6 +1,9 @@
 clf; close all;
 clear;
 
+% fix a seed for the random number generator
+rng(0);
+
 % load the noisy image
 original = double(mat2gray(imread('data/dogGrayRipples.png')));
 
@@ -26,3 +29,7 @@ saveas(gcf, 'output/fourier', 'png');
 figure;
 montage([original, cleaned_square, cleaned_circle]);
 saveas(gcf, 'output/process', 'png');
+
+% the results using a circle or a square are similar
+% let's use the circle for the final image
+imwrite(cleaned_circle, 'output/cleaned_dog.png');

@@ -4,7 +4,7 @@ function result = remove_second_max(matrix, radius, square)
     [index_max_y, index_max_x] = max_index(matrix);
     matrix_no_max = mask_matrix(matrix, [index_max_y, index_max_x], radius, square);
     
-    % mask the second maximum
+    % mask the second maximum, but leave the first one
     [index_y, index_x] = max_index(matrix_no_max);
     result = mask_matrix(matrix, [index_y, index_x], radius, square);
 end
