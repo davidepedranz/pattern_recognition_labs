@@ -62,52 +62,12 @@ for i = 1 : size(n_prototypes, 1)
     xlabel('Feature 1');
     ylabel('Feature 2');
 
-    % -------------------------------------------------------------
-    %  [START] EXTRA: some plots for the decision boundary
-    % -------------------------------------------------------------
-    
-    % plot the classification boundary
-    figure;
+    % EXTRA: some plots for the decision boundary
     grid_points = make_grid(floor(min(X)), ceil(max(X)), [100, 100]);
     grid_labels = lvq1_classify(grid_points, prototypes, prototypes_classes);
-    gscatter(grid_points(:, 1), grid_points(:, 2), grid_labels, colors_2);
-    
-    % plot the prototypes
-    hold on;
-    h = gscatter(prototypes(:, 1), prototypes(:, 2), prototypes_classes, colors, mrk, 12, 'off');
-    hold off;
-    for n = 1 : length(h)
-        set(h(n), 'MarkerFaceColor', colors(n, :));
-    end
-    
-    % plot the dataset
-    hold on;
-    gscatter(X(:, 1), X(:, 2), labels, colors_1, '^o');
-    hold off;
-    title(sprintf('Classification using %s prototypes', n_prototypes_title));
-    xlabel('Feature 1');
-    ylabel('Feature 2');
-    xlim([floor(min(X(:, 1))), ceil(max(X(:, 1)))]);
-    ylim([floor(min(X(:, 2))), ceil(max(X(:, 2)))]);
-    legend('Location', 'northwest')
-    
-    % save the final classification plots
+    plot_result(grid_points, grid_labels, X, labels, prototypes, prototypes_classes, n_prototypes(i, :), mrk, colors, colors_1, colors_2);
     saveas(gcf, sprintf('output/results_%s', suffix), 'png');
-    
-    % -------------------------------------------------------------
-    %  [END] EXTRA
-    % -------------------------------------------------------------
 end
 
 % save plot for question 6
 saveas(q6, 'output/comparison', 'png');
-
-
-function points = make_grid(bottom_left, top_right, samples)
-    step_xs = (top_right(1) - bottom_left(1)) / samples(1);
-    xs = bottom_left(1) : step_xs : top_right(1);
-    step_ys = (top_right(2) - bottom_left(2)) / samples(2);
-    ys = bottom_left(2) : step_ys : top_right(2);
-    [XS, YS] = meshgrid(xs, ys);
-    points = [XS(:), YS(:)];
-end
