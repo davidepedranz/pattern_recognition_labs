@@ -31,8 +31,8 @@ q6 = figure;
 n_prototypes = [1,1; 1,2; 2,1; 2,2];
 for i = 1 : size(n_prototypes, 1)
     
-    % train the LVQ classifier
-    [prototypes, prototypes_classes, errors] = lvq_train(X, y, n_prototypes(i, :)', 0.01);
+    % train the LVQ1 classifier
+    [prototypes, prototypes_classes, errors] = lvq1_train(X, y, n_prototypes(i, :)', 0.01);
     
     % use the number of prototypes to generate decent names
     n_prototypes_title = mat2str(n_prototypes(i, :));
@@ -55,8 +55,8 @@ for i = 1 : size(n_prototypes, 1)
         set(h6(n), 'MarkerFaceColor', colors(n, :));
     end
     hold on;
-    y_lvq = lvq_classify(X, prototypes, prototypes_classes);
-    gscatter(X(:, 1), X(:, 2), y_lvq, colors_2, mrk, 4);
+    y_lvq1 = lvq1_classify(X, prototypes, prototypes_classes);
+    gscatter(X(:, 1), X(:, 2), y_lvq1, colors_2, mrk, 4);
     hold off;
     title(sprintf('Classification using %s prototypes', n_prototypes_title));
     xlabel('Feature 1');
@@ -69,7 +69,7 @@ for i = 1 : size(n_prototypes, 1)
     % plot the classification boundary
     figure;
     grid_points = make_grid(floor(min(X)), ceil(max(X)), [100, 100]);
-    grid_labels = lvq_classify(grid_points, prototypes, prototypes_classes);
+    grid_labels = lvq1_classify(grid_points, prototypes, prototypes_classes);
     gscatter(grid_points(:, 1), grid_points(:, 2), grid_labels, colors_2);
     
     % plot the prototypes

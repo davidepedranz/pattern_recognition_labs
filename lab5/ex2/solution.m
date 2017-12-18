@@ -35,10 +35,10 @@ for i = 1 : n
     y_val = y(~current_fold);
     
     % train LVQ1
-    [prototypes, prototypes_classes, ~] = lvq_train(X_train, y_train, [2; 1], 0.01);
+    [prototypes, prototypes_classes, ~] = lvq1_train(X_train, y_train, [2; 1], 0.01);
     
     % validation
-    y_predicted = lvq_classify(X_val, prototypes, prototypes_classes);
+    y_predicted = lvq1_classify(X_val, prototypes, prototypes_classes);
     errors(i) = mean(y_predicted ~= y_val);
 end
 

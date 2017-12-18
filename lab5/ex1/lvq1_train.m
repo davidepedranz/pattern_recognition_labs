@@ -1,4 +1,4 @@
-function [prototypes, prototypes_classes, errors] = lvq_train(X, y, n_prototypes, eta, max_epochs)
+function [prototypes, prototypes_classes, errors] = lvq1_train(X, y, n_prototypes, eta, max_epochs)
 
     % assign a default value for the maximum number of epochs
     switch(nargin)
@@ -70,8 +70,8 @@ function [prototypes, prototypes_classes, errors] = lvq_train(X, y, n_prototypes
         end
         
         % compute the training error
-        y_lvq = lvq_classify(X, prototypes, prototypes_classes);
-        training_errors(epoch) = mean(y ~= y_lvq);
+        y_lvq1 = lvq1_classify(X, prototypes, prototypes_classes);
+        training_errors(epoch) = mean(y ~= y_lvq1);
         fprintf("error = %.4f\n",  training_errors(epoch));
         
         % stopping criteria: exit when 
