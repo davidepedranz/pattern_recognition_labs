@@ -75,7 +75,7 @@ function [prototypes, prototypes_classes, errors] = lvq_train(X, y, n_prototypes
         fprintf("error = %.4f\n",  training_errors(epoch));
         
         % stopping criteria: exit when 
-        if epoch >+ stability_epochs
+        if epoch >= stability_epochs
             last_errors = training_errors((epoch - stability_epochs + 1) : epoch);
             sd = std(last_errors);
             if sd < stability_threashold
