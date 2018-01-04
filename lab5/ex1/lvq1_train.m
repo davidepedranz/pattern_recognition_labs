@@ -61,7 +61,7 @@ function [prototypes, prototypes_classes, errors] = lvq1_train(X, y, n_prototype
             label = y(j);
             
             % take the closest prototype
-            distances = pdist2(example, prototypes, 'euclidean') .^ 2;
+            distances = pdist2(example, prototypes, 'squaredeuclidean');
             [~, i] = min(distances);
             
             % update the corresponding prototype

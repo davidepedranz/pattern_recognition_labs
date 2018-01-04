@@ -26,6 +26,12 @@ xlabel('Feature 1');
 ylabel('Feature 2');
 saveas(gcf, 'output/dataset', 'png');
 
+% plot for training errors combined
+errors_combined = figure;
+title('Training Error using different numbers of prototypes');
+xlabel('Epoch');
+ylabel('Training Error = #errors / #examples');
+
 % try different combination of #prototypes
 q6 = figure;
 n_prototypes = [1,1; 1,2; 2,1; 2,2];
@@ -45,6 +51,13 @@ for i = 1 : size(n_prototypes, 1)
     xlabel('Epoch');
     ylabel('Training Error = #errors / #examples');
     saveas(gcf, sprintf('output/training_error_%s', suffix), 'png');
+    
+    % plot training errors combined
+    figure(errors_combined);
+    hold on;
+    box on;
+    plot(errors);
+    hold off;
     
     % plot for question 6
     figure(q6);
@@ -68,6 +81,11 @@ for i = 1 : size(n_prototypes, 1)
     plot_result(grid_points, grid_labels, X, labels, prototypes, prototypes_classes, n_prototypes(i, :), mrk, colors, colors_1, colors_2);
     saveas(gcf, sprintf('output/results_%s', suffix), 'png');
 end
+
+% save plot for question 5
+figure(errors_combined);
+legend(cellstr(num2str(n_prototypes, 'prototypes = %d, %d')));
+saveas(errors_combined, 'output/training_errors', 'png');
 
 % save plot for question 6
 saveas(q6, 'output/comparison', 'png');
