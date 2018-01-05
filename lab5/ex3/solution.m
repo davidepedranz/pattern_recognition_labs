@@ -25,6 +25,20 @@ y = [ones(length(A), 1); ones(length(B), 1) * 2];
 n_prototypes = [2; 1];
 [prototypes, prototypes_classes, relevances, relevances_history, validation_errors] = rlvq_train(X, y, n_prototypes, 0.01, 0.001);
 
+% plot the feature space
+figure;
+fs = gscatter(prototypes(:, 1), prototypes(:, 2), prototypes_classes, colors, mrk, 16, 'off');
+for n = 1 : length(fs)
+    set(fs(n), 'MarkerFaceColor', colors(n, :));
+end
+hold on;
+gscatter(X(:, 1), X(:, 2), y, colors_1, mrk);
+hold off;
+title('Dataset');
+xlabel('Feature 1');
+ylabel('Feature 2');
+saveas(gcf, 'output/prototypes', 'png');
+
 % plot the training errors
 figure;
 subplot(2, 1, 1);
@@ -65,7 +79,6 @@ for i = 1 : n
     X_val = X(~current_fold, :);
     y_val = y(~current_fold);
     
-    % TODO: make training parameters a constant
     % train RLVQ
     [prototypes, prototypes_classes, relevances, relevances_history, ~] = rlvq_train(X_train, y_train, n_prototypes, 0.01, 0.001);
     
@@ -90,6 +103,7 @@ saveas(gcf, 'output/rlvq_errors_n_fold', 'png');
 
 
 % [EXTRA]: plot the separation boundary
+addpath(genpath('../ex1'));
 grid_points = make_grid(floor(min(X)), ceil(max(X)), [100, 100]);
 grid_labels = rlvq_classify(grid_points, prototypes, prototypes_classes, relevances);
 plot_result(grid_points, grid_labels, X, y, prototypes, prototypes_classes, n_prototypes, mrk, colors, colors_1, colors_2);
