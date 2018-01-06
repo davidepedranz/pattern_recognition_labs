@@ -4,9 +4,6 @@ clear;
 % prepare the folder for the results
 mkdir('output');
 
-% load the n_fold algorithm from exercise 2
-addpath(genpath('../ex2'));
-
 % some constants used for the plots
 mrk = '^o';
 colors = [0 0 1; 1 0 0];
@@ -20,6 +17,7 @@ B = importdata('data/data_lvq_B.mat');
 % compute the labels
 X = [A; B];
 y = [ones(length(A), 1); ones(length(B), 1) * 2];
+labels = arrayfun(@(y) iff(y == 1, "A", "B"), y);
 
 % train RLVQ
 n_prototypes = [2; 1];
@@ -32,7 +30,7 @@ for n = 1 : length(fs)
     set(fs(n), 'MarkerFaceColor', colors(n, :));
 end
 hold on;
-gscatter(X(:, 1), X(:, 2), y, colors_1, mrk);
+gscatter(X(:, 1), X(:, 2), labels, colors_1, mrk);
 hold off;
 title('Dataset');
 xlabel('Feature 1');
@@ -106,5 +104,5 @@ saveas(gcf, 'output/rlvq_errors_n_fold', 'png');
 addpath(genpath('../ex1'));
 grid_points = make_grid(floor(min(X)), ceil(max(X)), [100, 100]);
 grid_labels = rlvq_classify(grid_points, prototypes, prototypes_classes, relevances);
-plot_result(grid_points, grid_labels, X, y, prototypes, prototypes_classes, n_prototypes, mrk, colors, colors_1, colors_2);
+plot_result(grid_points, grid_labels, X, labels, prototypes, prototypes_classes, n_prototypes, mrk, colors, colors_1, colors_2);
 saveas(gcf, 'output/classification_2_1', 'png');
