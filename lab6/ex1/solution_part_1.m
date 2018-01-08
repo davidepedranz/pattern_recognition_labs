@@ -32,7 +32,7 @@ for index = 1 : length(ks)
     k = ks(index);
 
     % cluster
-    [labels, means, history] = kmeans(X, k);
+    [labels, means, history] = kmeans(X, k, false);
     
     % plot
     figure;
@@ -67,7 +67,7 @@ for i = 1 : length(ks)
     fprintf('Computing error for k=%d...\n', k);
     errors = zeros(trials, 1);
     for trial = 1 : trials
-        [labels, means, ~] = kmeans(X, k);
+        [labels, means, ~] = kmeans(X, k, false);
         errors(trial) = quantization_error(X, labels, means);
     end
     jk(i) = mean(errors);
