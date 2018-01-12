@@ -2,7 +2,7 @@ clf; close all;
 clear;
 
 % fix the seed for the random numbers
-rng(0);
+rng(2);
 
 % load the raw data
 X = importdata('data/checkerboard.mat');
