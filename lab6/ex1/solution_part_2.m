@@ -43,9 +43,12 @@ mean_error_normal = mean(errors_normal);
 std_error_normal = std(errors_normal);
 mean_error_special = mean(errors_special);
 std_error_special = std(errors_special);
+fprintf('k-means normal error: mean = %.2f, std = %.2f\n', mean_error_normal, std_error_normal);
+fprintf('k-means++      error: mean = %.2f, std = %.2f\n', mean_error_special, std_error_special);
 
 % statistical Welch’s t-test
 [h, p] = ttest2(errors_normal, errors_special, 'Vartype', 'unequal');
+fprintf('p-value for Welch t-test: %.5f\n', p);
 if h && mean_error_normal > mean_error_special
     fprintf('Special initialization yields better performances\n');
 else
