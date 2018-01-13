@@ -40,22 +40,35 @@ for index = 1 : length(ks)
     hold on;
     gscatter(means(:, 1), means(:, 2), 1:k, 'k', '.', 36, 'off');
     hold off;
+    title(sprintf('k-means clustering, k = %d', k));
+    xlabel('Dimension 1');
+    ylabel('Dimension 2');
     saveas(gcf, sprintf('output/cluster_k%d', k), 'png');
             
     % plot history of prototypes
     figure;
     hold on;
-    for h = 2 : size(history, 3)
-        for p = 1 : size(history, 1)
+    n_prototypes = size(history, 1);
+    for p = 1 : n_prototypes
+        color = colors(p, :);
+        for h = 2 : size(history, 3)
             previous = history(p, :, h - 1);
             current = history(p, :, h);
-            color = colors(p, :);
             plot_arrow(previous(1), previous(2), current(1), current(2), ...
                 'linewidth', 2, 'headwidth', 0.06, 'headheight', 0.09, ...
                 'color', color, 'facecolor', color, 'edgecolor', color);
         end
+        
+        % create the legend
+        leg(p) = plot(NaN, NaN, 'color', color); %#ok<SAGROW>
     end
     hold off;
+    title(sprintf('Intermediate prototypes positions for k-means clustering, k = %d', k));
+    xlabel('Dimension 1');
+    ylabel('Dimension 2');
+    legend(leg, arrayfun(@(i) sprintf('Prototype %d', i), 1 : n_prototypes, ...
+        'UniformOutput', false), 'Location', 'best');
+    saveas(gcf, sprintf('output/arrows_k%d', k), 'png');
 end
 
 % compute the errors
