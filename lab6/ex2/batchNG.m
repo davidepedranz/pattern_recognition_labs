@@ -15,6 +15,8 @@ function [prototypes] = batchNG(X, n, epochs, xdim, ydim, draw_plot)
     end
 
     % initialize prototypes to small values
+    % the following code works, but for this exercise we force the
+    % initialization to the given centroids
     % [~, dim] = size(X);
     % prototypes = rand(n, dim) - 0.5;
     % for i = 1 : size(prototypes, 1)

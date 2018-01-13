@@ -26,3 +26,12 @@ for i = 1 : length(epochs)
     drawnow;
 end
 saveas(gcf, 'output/ng', 'png');
+figure;
+plotResult(X, prototypes_ng);
+title('Batch Neural Gas Clustering, 500 epochs');
+saveas(gcf, 'output/ng_500', 'png');
+
+% compare errors
+error_kmeans = quantization_error(X, prototypes_kmeans);
+error_ng = quantization_error(X, prototypes_ng);
+fprintf("Quantization errors: k-means = %f, ng = %f\n", error_kmeans, error_ng);
