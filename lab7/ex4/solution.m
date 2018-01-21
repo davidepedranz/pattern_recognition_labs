@@ -20,7 +20,15 @@ assert(size(provinces, 1) == size(X, 1));
 n = size(X, 1);
 
 % normalize (z-transform)
-Z = (X - mean(X, 1)) ./ std(X, [], 1);
+% ------------------------------------------------------------------------
+% Here we assume the provinces of the Netherlands to be a population and
+% NOT a sample of a population (since we have the data for ALL provinces)...
+% In other words, we are computing the exact mean and standard deviation of
+% the entire population, not the sample mean and sample standard deviation.
+% Thus, we use a factor N to compute the standard deviation instead of N-1
+% (used in an estimator from a SAMPLE of a population with unknown mean).
+% ------------------------------------------------------------------------
+Z = (X - mean(X, 1)) ./ std(X, 1, 1);
 
 % compute the dissimilarity matrix
 distances = pdist2(Z, Z, 'euclidean');
